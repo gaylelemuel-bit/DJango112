@@ -1,14 +1,90 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
-    <div>
-        <h1>Home Page</h1>
-        <p> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum ea, consequuntur porro facilis ratione optio veritatis eveniet aperiam aliquid itaque voluptatem placeat? Labore perspiciatis dolorum veniam, ea quisquam voluptatum dignissimos architecto! Officia error culpa dicta accusantium quaerat cumque nesciunt voluptate exercitationem. Nostrum in assumenda officiis eius omnis sequi esse labore.</p>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Homepage | LJ's World {% endblock %}
+
+{% block css %}
+<style>
+    /* Hero Section with a dark gradient overlay */
+    .hero-section {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                    url('https://images.unsplash.com/photo-1460627390041-532a28402358?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fHN1bnNldHxlbnwwfHwwfHx8MA%3D%3D');
+        background-size: cover;
+        background-position: center;
+        min-height: 70vh;
+        display: flex;
+        align-items: center;
+        color: white;
+    }
+    
+    .hobby-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: none;
+        overflow: hidden;
+    }
+    
+    .hobby-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .hobby-img {
+        height: 250px;
+        object-fit: cover;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<header class="hero-section text-center">
+    <div class="container">
+        <h1 class="display-2 fw-bold mb-3">Welcome to LJ's World</h1>
+        <p class="lead fs-3 mb-5">Father, Husband, and Follower of Christ.</p>
+        <a href="{% url 'about' %}" class="btn btn-primary btn-lg px-5 rounded-pill">Learn More About Me</a>
     </div>
-</body>
-</html>
+</header>
+
+<!-- Hobbies Section -->
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold">Things I Love</h2>
+        <p class="text-muted">Life is an adventure; here's how I spend mine.</p>
+    </div>
+
+    <div class="row g-4">
+        <!-- Traveling -->
+        <div class="col-md-4">
+            <div class="card hobby-card h-100 shadow-sm">
+                <img src="https://images.unsplash.com/photo-1512100254544-47340ba56b5d?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTc2fHx0cmF2ZWx8ZW58MHx8MHx8fDA%3D" class="card-img-top hobby-img" alt="Traveling">
+                <div class="card-body">
+                    <h3 class="h5 card-title fw-bold">Traveling</h3>
+                    <p class="card-text text-muted">Exploring God's creation one country at a time.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fitness -->
+        <div class="col-md-4">
+            <div class="card hobby-card h-100 shadow-sm">
+                <img src="https://images.unsplash.com/photo-1623874106686-5be2b325c8f1?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fGd5bXxlbnwwfHwwfHx8MA%3D%3D" class="card-img-top hobby-img" alt="Gym">
+                <div class="card-body">
+                    <h3 class="h5 card-title fw-bold">Fitness</h3>
+                    <p class="card-text text-muted">Staying healthy at the gym for my family and my health.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Football -->
+        <div class="col-md-4">
+            <div class="card hobby-card h-100 shadow-sm">
+                <img src="https://images.unsplash.com/photo-1611000273610-f4fb9c7fd0be?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YW1lcmljYW4lMjBmb290YmFsbHxlbnwwfHwwfHx8MA%3D%3D" class="card-img-top hobby-img" alt="Football">
+                <div class="card-body">
+                    <h3 class="h5 card-title fw-bold">Football</h3>
+                    <p class="card-text text-muted">My favorite way to stay active and competitive.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

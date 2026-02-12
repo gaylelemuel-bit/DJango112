@@ -1,0 +1,23 @@
+
+p { 
+    background-color: rgb(226, 108, 34) !important; 
+    color: antiquewhite; 
+}
+
+h1 {
+    background-color: aqua; 
+    letter-spacing: 5px;
+}
+
+.hero-section {
+    text-align: center; 
+    padding: 50px 20px; 
+    background: #f4f4f4;
+}
+
+.card {
+    border: 1px solid #ccc; 
+    padding: 20px; 
+    flex: 1; 
+    text-align: center;
+}
