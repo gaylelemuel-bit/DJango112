@@ -12,11 +12,31 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'about' %}">About </a>
         </li>
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <form action="{% url 'logout' %}" method="post">
+              {% csrf_token%}
+              <input type="submit" value="Log Out" class="nav-link">
+            </form>
+          </li>
+
+        {% else%}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Log In </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'signup' %}">Sign Up </a>
+          </li>
+        {% endif %}
       </ul>
+      {% if user.is_authenticated %}
+        <div class="d-flex align-items-center">
+          <span class="badge text-bg-info">{{user.username}}</span>
+          <img src="https://picsum.photos/500/600" alt="Profile" class="rounded-circle border border-white" style="width: 40px; height: 40px; object-fit: cover;">
+        </div>
+       {% endif %}
       
-      <div class="d-flex align-items-center">
-        <img src="https://picsum.photos/500/600" alt="Profile" class="rounded-circle border border-white" style="width: 40px; height: 40px; object-fit: cover;">
-      </div>
+      
     </div>
   </div>
 </nav>
