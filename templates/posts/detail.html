@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %} Post {{ post.id }} {% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>{{ post.title }}</h1>
+    {% if post.subtitle %}
+        <h3 class="text-muted">{{ post.subtitle }}</h3>
+    {% endif %}
+    
+    <p class="text-secondary">By {{ post.author }} | {{ post.created_on }}</p>
+    <hr>
+    <span>Status: {{post.status}}</span>
+
+    <div class="post-body">
+        {{ post.body|linebreaks }}
+    </div>
+
+    <hr>
+    <a href="{% url 'update' post.id %}" class="btn btn-warning">Edit Post</a>
+    <a href="{% url 'delete' post.id %}" class="btn btn-danger">Delete Post</a>
+    <a href="{% url 'list' %}" class="btn btn-secondary">Back to List</a>
+</div>
+{% endblock %}
