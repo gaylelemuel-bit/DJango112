@@ -10,12 +10,13 @@
     {% endif %}
     
     <p class="text-secondary">By {{ post.author }} | {{ post.created_on }}</p>
-    <hr>
     <span>Status: {{post.status}}</span>
+    <hr>
 
     <div class="post-body">
         {{ post.body|linebreaks }}
     </div>
+    
 
     <hr>
     <a href="{% url 'update' post.id %}" class="btn btn-warning">Edit Post</a>

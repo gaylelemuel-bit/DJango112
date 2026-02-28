@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Draft Posts{% endblock %}
+
+{% block content %}  
+<h1>Draft Posts</h1>
+<ul>
+    {% for post in posts %}
+        <li>
+            {{ post.title }} - {{ post.created_at|date }}
+            <br>
+            <a href="{% url 'detail' post.id %}" class="btn btn-primary btn-sm">View Details</a>
+        </li>
+    {% empty %}
+        <li>No draft posts found.</li>
+    {% endfor %}
+</ul>
+
+<hr>
+<a href="{% url 'list' %}" class="btn btn-secondary">Back to List</a>
+
+{% endblock %} 
+
+

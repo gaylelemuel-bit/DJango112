@@ -30,6 +30,10 @@ class PostDetailView(DetailView):
     template_name = "posts/detail.html"
     model = Post
     context_object_name = "post"
+     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return(context)
 
 class PostDeleteView(DeleteView):
     template_name = "posts/delete.html"
@@ -44,3 +48,20 @@ class PostUpdateView(UpdateView):
     fields = ["title","subtitle","body", "status"]
     context_object_name = "post"
     
+class ArchivedPostListView(ListView):
+    model = Post
+    template_name = 'posts/archived.html'  
+    context_object_name = 'posts'       
+
+    def get_queryset(self):
+        return Post.objects.filter(status__name='archived')    
+    
+class DraftPostListView(ListView):
+    model = Post
+    template_name = 'posts/draft.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        return Post.objects.filter(status__name='draft')  
+    
+

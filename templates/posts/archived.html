@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Archived Posts{% endblock %}
+
+{% block content %}
+<h1>Archived Posts</h1>
+<ul>
+    {% for post in posts %}
+        <li>
+            <strong>{{ post.title }}</strong> 
+            <small>({{ post.created_at|date:"M d, Y" }})</small>
+            <p>{{ post.body|truncatewords:20 }}</p>
+            
+            {# MOVED INSIDE THE LOOP: Uses the generic 'detail' URL from your urls.py #}
+            <a href="{% url 'detail' post.id %}" class="btn btn-primary btn-sm">View Details</a>
+        </li>
+    {% empty %}
+        <li>No archived posts found.</li>
+    {% endfor %}
+</ul>
+
+<hr>
+<a href="{% url 'list' %}" class="btn btn-outline-dark">Back to Published Posts</a>
+{% endblock %}
