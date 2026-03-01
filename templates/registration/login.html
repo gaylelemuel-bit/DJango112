@@ -10,5 +10,5 @@
     {{ form|crispy }}
     <button type="submit" value="Log In" class="btn btn-primary">Log In</button>
 </form>
-
+<a href="{% url 'password_reset' %}" class="btn btn-warning mt-3"> Forget Password</a>
 {% endblock %}

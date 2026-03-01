@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.views.generic import ListView, CreateView,DetailView,DeleteView,UpdateView
 from posts.models import Post, Status
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin, UserPassesTestMixin
+)
 
 # Create your views here.
 class PostListView(ListView):
@@ -17,7 +20,7 @@ class PostListView(ListView):
         return(context)
 
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     template_name = "posts/new.html"
     model = Post
     fields = ["title","subtitle","body", "status"]
@@ -26,7 +29,7 @@ class PostCreateView(CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin,DetailView):
     template_name = "posts/detail.html"
     model = Post
     context_object_name = "post"
@@ -35,20 +38,40 @@ class PostDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         return(context)
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin,UserPassesTestMixin, DeleteView):
     template_name = "posts/delete.html"
     model = Post
     context_object_name = "post"
     success_url = reverse_lazy("list")
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user.is_authenticated:
+            if self.request.user == post.author:
+                return True
+            else:
+                return False
+        else:
+            return False 
     
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     template_name = "posts/edit.html"
     model = Post
     fields = ["title","subtitle","body", "status"]
     context_object_name = "post"
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user.is_authenticated:
+            if self.request.user == post.author:
+                return True
+            else:
+                return False
+        else:
+            return False 
     
-class ArchivedPostListView(ListView):
+class ArchivedPostListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'posts/archived.html'  
     context_object_name = 'posts'       
@@ -56,7 +79,7 @@ class ArchivedPostListView(ListView):
     def get_queryset(self):
         return Post.objects.filter(status__name='archived')    
     
-class DraftPostListView(ListView):
+class DraftPostListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'posts/draft.html'
     context_object_name = 'posts'

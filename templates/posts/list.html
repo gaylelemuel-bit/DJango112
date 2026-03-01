@@ -10,6 +10,8 @@
       <h4>{{ post.title }}</h4> 
       <span>Status: {{ post.status }}</span>
       <br>
+      <span>Author: {{ post.author }}</span>
+      <br>
       <a href="{% url 'detail' post.id %}" class="btn btn-primary">View Details</a>
     </li> 
   {% endfor %} 

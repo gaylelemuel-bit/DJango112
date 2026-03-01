@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% block title %} Post {{ post.id }} {% endblock %}
 
 {% block content %}
@@ -8,19 +7,26 @@
     {% if post.subtitle %}
         <h3 class="text-muted">{{ post.subtitle }}</h3>
     {% endif %}
-    
+         
     <p class="text-secondary">By {{ post.author }} | {{ post.created_on }}</p>
-    <span>Status: {{post.status}}</span>
+    <span>Status: {{ post.status }}</span>
     <hr>
 
     <div class="post-body">
         {{ post.body|linebreaks }}
     </div>
-    
 
     <hr>
     <a href="{% url 'update' post.id %}" class="btn btn-warning">Edit Post</a>
     <a href="{% url 'delete' post.id %}" class="btn btn-danger">Delete Post</a>
-    <a href="{% url 'list' %}" class="btn btn-secondary">Back to List</a>
+
+    {% if post.status.name == 'draft' %}
+        <a href="{% url 'draft_posts' %}" class="btn btn-secondary">Back to Drafts</a>
+    {% elif post.status.name == 'archived' %}
+        <a href="{% url 'archived_posts' %}" class="btn btn-secondary">Back to Archives</a>
+    {% else %}
+        <a href="{% url 'list' %}" class="btn btn-secondary">Back to List</a>
+    {% endif %}
 </div>
 {% endblock %}
+
